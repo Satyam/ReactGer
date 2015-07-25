@@ -1,0 +1,29 @@
+r backup.sql
+,s/IdAsiento/idAsiento/g
+,s/IdAnexo/idAnexo/g
+,s/Tipo/tipo/g
+,s/Numero/numero/g
+,s/Importe/importe/g
+,s/Texto/texto/g
+,s/Fecha/fecha/g
+,s/IdUsr/idUser/g
+,s/AutoAsiento/autoAsiento/g
+,s/Descr/descr/g
+,s/Codigo/codigo/g
+,s/IdPase/idPase/g
+,s/Cuenta/cuenta/g
+,s/Debe/debe/g
+,s/Haber/haber/g
+,s/Nombre/username/g
+,s/pwd/password/g
+,s/tiposautoAsiento/TiposAutoAsiento/g
+,s/tiposProveedor/TiposProveedor/g
+,s/tiposAnexo/TiposAnexo/g
+,s/CREATE TABLE `cuentas`/CREATE TABLE `Cuentas`/g
+,s/DEFAULT CHARSET=latin1/DEFAULT CHARSET=utf8/g
+,s/IdMenu/idMenu/g
+,s/Orden/orden/g
+,s/Pertenece/pertenece/g
+,s///g
+,w salida.sql
+q

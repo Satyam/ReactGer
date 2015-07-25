@@ -1,0 +1,2 @@
+Esta es una prueba de idAsiento seguido de
+IdPase que tambien contiene idAsiento.
