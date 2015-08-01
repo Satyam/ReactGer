@@ -4,6 +4,7 @@ export default alt.generateActions(
 	'logout',
 	'login',
 	'loggedIn',
+  'isLoggedIn',
 
 	'listaAsientos'
 );

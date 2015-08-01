@@ -25,13 +25,11 @@ app.set('mysql', mysql);
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(session({
+app.set('session', session({
 	secret: 'geruma valplata',
 	resave: false,
-	saveUninitialized: false
+	saveUninitialized: true
 }));
-
-app.use(express.static(path.join(__dirname, '../src')));
 
 app.get('/app.js', function (req, res) {
 	if (production) {
@@ -53,23 +51,14 @@ require('./datasources.js')(app, mysql);
 
 require('../build/server.js')(app);
 
+app.use(express.static(path.join(__dirname, '../src')));
+
 var port = process.env.PORT || 8000;
 var server = http.createServer(app);
 
-server.listen(port);
-
-server.on('listening', function () {
-	console.log('Express server listening on port ' + port);
-});
-
-server.on('error', function (e) {
-	if (e.code === 'EADDRINUSE') {
-		console.log('Address in use, retrying...');
-		server.close();
-		setTimeout(function () {
-			server.listen(port);
-		}, 1000);
-	}
+server.listen(port, function () {
+  var a = server.address();
+  console.log('Listening at %s in %s mode', a.port, app.get('env'));
 });
 
 if (!process.env.PRODUCTION) {

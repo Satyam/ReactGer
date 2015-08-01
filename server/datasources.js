@@ -15,6 +15,8 @@ module.exports = function (app, mysql) {
 	app.get(DATA_ROOT + 'asientos', asientos.list);
 
 	var users = require(MODULES + 'users.js')(app, mysql);
-	app.post(DATA_ROOT + 'login', users.login);
-	app.get(DATA_ROOT + 'logout', users.logout);
+  var session = app.get('session');
+	app.post(DATA_ROOT + 'login', session, users.login);
+	app.get(DATA_ROOT + 'logout', session, users.logout);
+	app.get(DATA_ROOT + 'isLoggedIn', session, users.isLoggedIn);
 };

@@ -7,7 +7,7 @@ import classNames from 'classnames';
 
 import menuStore from '../../stores/menu.js';
 
-export default class Main extends Componente {
+export default class Menu extends Componente {
 	getStores () {
 		return [
 			menuStore
@@ -20,7 +20,8 @@ export default class Main extends Componente {
 			<ul className="nav nav-pills nav-stacked">
 				{this.state.menu.map((menuItem, index) => (
 					<li key={index} className={classNames({active: menuItem.URL === path})}>
-					{menuItem.URL === 'AbreCaja' ?
+
+					{this.context.router.namedRoutes[menuItem.URL] ?
 						(<Link to={menuItem.URL}>{menuItem.descr}</Link>) :
 						(<a href={menuItem.URL}>{menuItem.descr}</a>)
 					}
@@ -31,6 +32,6 @@ export default class Main extends Componente {
 	}
 }
 
-Main.contextTypes = {
+Menu.contextTypes = {
 	router: React.PropTypes.func.isRequired
 };

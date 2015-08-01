@@ -6,7 +6,7 @@ module.exports = function (app, mysql) {
 				return connection.query(
 					'select descr, URL, nivel from Menu' +
 					' where orden > 0 and (nivel & ?) > 0 and URL is not null and URL <> "" order by orden',
-					[req.session.level]
+					[req.params.level]
 				).then(function (rows) {
 					res.send(rows);
 				}).fin(function () {

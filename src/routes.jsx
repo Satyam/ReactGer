@@ -3,8 +3,8 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 import Router from 'react-router';
 let {Route, DefaultRoute, NotFoundRoute} = Router;
 
-import Main from './components//main/main.jsx';
-import Logo from './components//logo/logo.jsx';
+import Main from './components/main/main.jsx';
+import Logo from './components/logo/logo.jsx';
 
 
 import AbreCaja from './components/AbreCaja/AbreCaja.jsx';

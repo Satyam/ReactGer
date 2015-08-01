@@ -3,7 +3,6 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 import {Componente} from '../../common/common.js';
 import AsientosStore from '../../stores/asientos.js';
 import actions from '../../actions.js';
-import alt from '../../alt.js';
 
 export default class Asientos extends Componente {
 	constructor (props, context) {
@@ -13,13 +12,12 @@ export default class Asientos extends Componente {
 	getStores () {
 		return [AsientosStore];
 	}
-	componentWillMount () {
-		console.log('Asientos.componentWillMount', alt.pending);
+	componentDidMount () {
+		console.log('Asientos.componentWillMount');
 		actions.listaAsientos();
-		console.log('Asientos.componentWillMount (after)', alt.pending);
 	}
 	render () {
-		console.log('Asientos.render', alt.pending);
+		console.log('Asientos.render');
 		return (
 			<table className="table table-bordered table-stripped">
 				<thead><tr><th>Asiento</th><th>Fecha</th><th>Descripción</th><th>Operación</th></tr></thead>

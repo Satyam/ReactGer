@@ -6,12 +6,15 @@ import classNames from 'classnames';
 
 import userStore from '../../stores/user.js';
 
-export default class Main extends Componente {
+export default class Login extends Componente {
 	getStores () {
 		return [
 			userStore
 		];
 	}
+  componentDidMount () {
+    actions.isLoggedIn();
+  }
 	onUsernameChange (name) {
 		this.username = name;
 	}
@@ -25,7 +28,10 @@ export default class Main extends Componente {
 			<div className="whoami">
 				<p>Usuario: {s.username}</p>
 				<button
-					onClick={() => actions.logout()}
+					onClick={() => {
+						actions.logout();
+						this.context.router.transitionTo('app');
+					}}
 					className="btn btn-warning"
 				>
 					Logout
@@ -64,3 +70,7 @@ export default class Main extends Componente {
 		);
 	}
 }
+
+Login.contextTypes = {
+	router: React.PropTypes.func.isRequired
+};

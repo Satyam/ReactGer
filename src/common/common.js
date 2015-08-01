@@ -42,15 +42,3 @@ export class Componente extends React.Component {
 		this[unlisteners].forEach(u => u());
 	}
 }
-
-export function dataUrl(url) {
-	// for browser
-	if (typeof window !== 'undefined') {
-		return 'http://localhost:8000/data/' + url;
-	}
-	// For node
-	if (typeof process !== 'undefined') {
-		return 'http://localhost:8000/data/' + url;
-	}
-	return url;
-}

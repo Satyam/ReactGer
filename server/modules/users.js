@@ -11,8 +11,22 @@ module.exports = function (app, mysql) {
 				res.status(401).send('Must Login');
 			}
 		},
+    isLoggedIn: function (req, res) {
+      var s = req.session;
+      if (s.idUser) {
+        res.send({
+          idUser: s.idUser,
+          level: s.level,
+          username: s.username
+
+        });
+      } else {
+        res.send({});
+      }
+    },
 		login: function (req, res) {
 			console.log('login query', req.body);
+      var s = req.session;
 			var username = req.body.username || '',
 				password = req.body.password || '';
 
@@ -34,9 +48,13 @@ module.exports = function (app, mysql) {
 							res.send(401, 'ERRPWD');
 							return;
 						}
-						req.session.idUser = row.idUser;
-						req.session.level = row.level;
-						res.status(200).send({
+            s.username = username;
+						s.idUser = row.idUser;
+						s.level = row.level;
+            s.save(function (err) {
+              if (err) console.warn('error saving session', err);
+            });
+						res.send({
 							idUser: row.idUser,
 							level: row.level
 						});
@@ -52,7 +70,7 @@ module.exports = function (app, mysql) {
 		},
 		logout: function (req, res) {
 			req.session.destroy();
-			res.send(200);
+			res.end();
 		}
 	};
 };

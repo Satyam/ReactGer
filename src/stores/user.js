@@ -1,7 +1,6 @@
 import alt from '../alt.js';
 import actions from '../actions.js';
 import axios from 'axios';
-import {dataUrl} from '../common/common.js';
 
 class UserStore {
 	constructor() {
@@ -14,25 +13,43 @@ class UserStore {
 	}
 	onLogin (data) {
 		this.username = data.username;
-		this.password = data.password;
-		axios.post(dataUrl('login'), data)
+		this.password = '';
+		return axios.post('/data/login', data)
 		.then(response => {
 			var d = response.data;
 			this.id = d.idUser;
 			this.level = d.level;
 			actions.loggedIn(this);
-			this.emitChange();
 		})
 		.catch(response => console.log('login error', response));
-		return false;
 	}
 	onLogout () {
-		axios.get(dataUrl('logout'));
+		axios.get('/data/logout');
 		this.username = '';
 		this.password = '';
 		this.id = null;
 		this.level = null;
 	}
+  onIsLoggedIn (cookie) {
+		if (this.id) return;
+		var c = '';
+		for (var k in cookie) {
+			if (cookie.hasOwnProperty(k)) {
+				c += k + '=' + cookie[k] + ';';
+			}
+		}
+    return axios.get('/data/isLoggedIn', {headers: {cookie: c}}) // eslint-disable-line consistent-return
+    .then(response => {
+      var d = response.data;
+      console.log('isLoggedIn:', d);
+			this.id = d.idUser;
+			this.level = d.level;
+      this.username = d.username || '';
+      if (this.id) {
+        actions.loggedIn(this);
+      }
+    });
+  }
 }
 
 export default alt.createStore(UserStore, 'UserStore');
