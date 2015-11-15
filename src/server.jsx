@@ -7,7 +7,7 @@ import fs from 'fs';
 var template = null;
 
 // Polyfill
-import 'babel-core/polyfill';
+import 'babel-polyfill';
 
 import alt from './alt.js';
 
@@ -34,6 +34,7 @@ export default function (app) {
           case 'app':
             actions.isLoggedIn(cookie);
             break;
+					default:
         }
       });
 			state.params.cookie = cookie;

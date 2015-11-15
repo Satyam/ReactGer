@@ -3,7 +3,7 @@
  */
 
 // Polyfill
-import 'babel-core/polyfill';
+import 'babel-polyfill';
 
 // Libraries
 import React from 'react';

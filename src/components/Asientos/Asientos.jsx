@@ -13,7 +13,7 @@ export default class Asientos extends Componente {
 		return [AsientosStore];
 	}
 	componentDidMount () {
-		console.log('Asientos.componentWillMount');
+		console.log('Asientos.componentDidMount');
 		actions.listaAsientos();
 	}
 	render () {

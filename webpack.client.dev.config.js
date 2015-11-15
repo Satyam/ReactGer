@@ -29,7 +29,11 @@ module.exports = {
 			{
 				test: /\.jsx?$/,
 				exclude: /node_modules/,
-				loaders: ['react-hot', 'babel-loader']
+				loader: 'react-hot!babel-loader?' + JSON.stringify({
+						// https://github.com/babel/babel-loader#options
+						cacheDirectory: true,
+						presets: ['es2015', 'react']
+				})
 			}
 		]
 	},

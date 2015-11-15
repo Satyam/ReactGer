@@ -48,8 +48,7 @@ app.get('/styles.css', function (req, res) {
 // app.use(require('./modules/users.js')(app, mysql).check);
 
 require('./datasources.js')(app, mysql);
-
-require('../build/server.js')(app);
+require('../build/server.js').default(app);
 
 app.use(express.static(path.join(__dirname, '../src')));
 
