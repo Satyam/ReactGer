@@ -1,16 +1,43 @@
+/** @module stores/user */
+
 import alt from '../alt.js';
 import actions from '../actions.js';
 import axios from 'axios';
 
+
+/**
+On success, object with data about user logging in, on fail error message.
+@typedef {Object | String} LoginPromise
+@property {Integer} idUser Numerical Id of the user
+@property {Integer} level Access level of the user
+*/
+
+/**
+Class providing information about a user
+*/
 class UserStore {
+	/**
+	@member {String} username Login name of the user
+	@member {String} password Password for this user
+	@member {Integer | null} numerical id of the user in the database
+	@member {Integer | null} access level for the logged in user
+	/**
+	Initializes user-related data to no user
+	*/
 	constructor() {
-		this.menu = [];
 		this.id = null;
 		this.username = '';
 		this.password = '';
 		this.level = null;
 		this.bindActions(actions);
 	}
+	/**
+	Called when a user logs in
+	@param {Object} data Login data
+	@param {String} data.username Username of the user loging in
+	@param {String} data.password Password for the user
+	@return {LoginPromise} Promise for server query for user logging in.
+	*/
 	onLogin (data) {
 		this.username = data.username;
 		this.password = '';
@@ -23,6 +50,10 @@ class UserStore {
 		})
 		.catch(response => console.log('login error', response));
 	}
+	/**
+	Called when the user logs out.
+	Nullifies all information about that user.
+	*/
 	onLogout () {
 		axios.get('/data/logout');
 		this.username = '';
@@ -52,4 +83,10 @@ class UserStore {
   }
 }
 
+
 export default alt.createStore(UserStore, 'UserStore');
+
+/**
+Exports a store for the user currently logged in
+@exports {AltStore} UserStore
+*/

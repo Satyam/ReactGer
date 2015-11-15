@@ -7,6 +7,7 @@ var server = require('gulp-develop-server');
 var less = require('gulp-less');
 var minifyCSS = require('gulp-minify-css');
 var babel = require('gulp-babel');
+var documentation = require('gulp-documentation');
 
 gulp.task('default', [
 	'eslint', 'less', 'webpack:server', 'server:start', 'watches'
@@ -22,7 +23,7 @@ gulp.task('webpack:watch', function () {
 	gulp.watch(['src/**/*'], ['webpack:build', 'webpack:server']);
 });
 
-gulp.task('build', ['eslint', 'webpack:build', 'webpack:server']);
+gulp.task('build', ['eslint', 'webpack:build', 'webpack:server', 'documentation']);
 
 var wp = function (config, callback) {
 	webpack(require(config), function (err /*, stats */) {
@@ -58,6 +59,18 @@ gulp.task('babel', function () {
 	])
 	.pipe(babel())
 	.pipe(gulp.dest('dist'));
+});
+
+gulp.task('documentation', function () {
+  gulp.src([
+			'src/**/*.jsx',
+			'src/**/*.js'
+		])
+    .pipe(documentation({
+			format: 'html',
+			github: true
+		}))
+    .pipe(gulp.dest('docs'));
 });
 
 gulp.task('less:watch', function () {

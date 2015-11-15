@@ -23,6 +23,7 @@
     "gulp-babel": "^5.1.0",
     "gulp-concat": "^2.6.0",
     "gulp-develop-server": "^0.4.3",
+    "gulp-documentation": "^2.0.1",
     "gulp-eslint": "^0.15.0",
     "gulp-less": "^3.0.3",
     "gulp-minify-css": "^1.2.0",
